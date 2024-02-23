@@ -1,7 +1,7 @@
 # GenAI-Healthcare-App
 The AI Mini HealthCare App is a web tool enabling users to analyze food images for nutritional insights, calorie details, and preparation methods. It utilizes Google's Gemini Pro Vision API for analysis, providing concise and informative responses. With intuitive functionality, it promotes informed dietary decisions and healthier lifestyles.
 
-## Access the application in your web browser at `http://localhost:8501`.
+## Access the application in your web browser at `https://genai-healthcare-custom-app.streamlit.app/`.
 
 ## Contributing
 
