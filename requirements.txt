@@ -1,7 +1,6 @@
 streamlit
 google-generativeai
 python-dotenv
-streamlit
 google-generativeai
 python-dotenv
 langchain
@@ -10,3 +9,5 @@ chromadb
 pdf2image
 faiss-cpu
 langchain_google_genai
+matplotlib
+plotly
