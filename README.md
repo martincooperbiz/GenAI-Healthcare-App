@@ -9,7 +9,7 @@ Contributions to the AI Mini HealthCare App are welcome! If you have any ideas f
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the GNU General Public License v3.0 - see the [LICENSE](LICENSE) file for details.
 
 
 # AI Mini HealthCare App
