@@ -28,8 +28,8 @@ def input_image_setup(uploaded_file):
 # Initialize Streamlit app
 st.set_page_config(page_title=" GeminAI HealthCare Assistance mini🎄")
 
-# Sidebar with API key input and save button
-api_key = st.sidebar.text_input("Enter Google API Key:", key="api_key")
+# API key input at the top of the page
+api_key = st.text_input("Enter Google API Key:", key="api_key")
 
 # Custom CSS for heading
 st.markdown(
