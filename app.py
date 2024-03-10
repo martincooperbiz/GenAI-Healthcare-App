@@ -30,8 +30,6 @@ st.set_page_config(page_title=" GeminAI HealthCare Assistance mini🎄")
 
 # Sidebar with API key input and save button
 api_key = st.sidebar.text_input("Enter Google API Key:", key="api_key")
-if st.sidebar.button("Save"):
-    st.sidebar.success("API Key Saved")
 
 # Custom CSS for heading
 st.markdown(
