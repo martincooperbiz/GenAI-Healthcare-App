@@ -3,11 +3,10 @@ import google.generativeai as genai
 from PIL import Image
 import matplotlib.pyplot as plt
 
-## Function to load Google Gemini Pro Vision API And get response
-def get_gemini_repsonse(input, image, prompt, api_key):
-    genai.configure(api_key=api_key)
-    model=genai.GenerativeModel('gemini-pro-vision')
-    response=model.generate_content([input, image[0], prompt])
+# Function to load Google Gemini Pro Vision API And get response
+def get_gemini_repsonse(input, image, prompt):
+    model = genai.GenerativeModel('gemini-pro-vision')
+    response = model.generate_content([input, image[0], prompt])
     return response.text
 
 def input_image_setup(uploaded_file):
@@ -26,8 +25,14 @@ def input_image_setup(uploaded_file):
     else:
         raise FileNotFoundError("No file uploaded")
 
-##initialize our streamlit app
+# Initialize Streamlit app
 st.set_page_config(page_title=" GeminAI HealthCare Assistance mini🎄")
+
+# Sidebar with API key input and save button
+st.sidebar.title("API Configuration")
+api_key = st.sidebar.text_input("Enter Google API Key:", key="api_key")
+if st.sidebar.button("Save"):
+    st.sidebar.success("API Key Saved")
 
 # Custom CSS for heading
 st.markdown(
@@ -67,16 +72,15 @@ st.markdown('<p class="horizontal-box">Upload Image Explore Insights</p>', unsaf
 
 # Sidebar with images and headings
 st.sidebar.title("🍽️ Food Info")
-#st.sidebar.image("your_image1.jpg", width=100)
-#st.sidebar.image("your_image2.jpg", width=100)
-#st.sidebar.image("your_image3.jpg", width=100)
+# st.sidebar.image("your_image1.jpg", width=100)
+# st.sidebar.image("your_image2.jpg", width=100)
+# st.sidebar.image("your_image3.jpg", width=100)
 st.sidebar.header("Try Your Free Health Assistance")
 st.sidebar.header("Upload any Food images")
 st.sidebar.header("Look the Magic")
 
 uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
 input = st.text_input("Input Prompt: ", key="input")
-api_key = st.text_input("Google API Key")
 
 if uploaded_file is not None:
     image = Image.open(uploaded_file)
@@ -95,7 +99,7 @@ try:
             ----
             ----
         """
-        response = get_gemini_repsonse(input, image_data, input_prompt, api_key)
+        response = get_gemini_repsonse(input, image_data, input_prompt)
         st.subheader("Total Calories")
         st.write(response)
 except FileNotFoundError as e:
@@ -111,7 +115,7 @@ try:
             ----
             ----
         """
-        response = get_gemini_repsonse(input, image_data, input_prompt, api_key)
+        response = get_gemini_repsonse(input, image_data, input_prompt)
         st.subheader("Preparation Method")
         st.write(response)
 except FileNotFoundError as e:
@@ -143,7 +147,7 @@ try:
             ----
             ----
         """
-        response = get_gemini_repsonse(input, image_data, input_prompt, api_key)
+        response = get_gemini_repsonse(input, image_data, input_prompt)
         st.subheader("Nutritional Content")
         st.write(response)
 except FileNotFoundError as e:
