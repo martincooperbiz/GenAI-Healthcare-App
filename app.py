@@ -1,18 +1,11 @@
-from dotenv import load_dotenv
-
-load_dotenv() ## load all the environment variables
-
 import streamlit as st
-import os
 import google.generativeai as genai
 from PIL import Image
 import matplotlib.pyplot as plt
 
-genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
-
 ## Function to load Google Gemini Pro Vision API And get response
-
-def get_gemini_repsonse(input, image, prompt):
+def get_gemini_repsonse(input, image, prompt, api_key):
+    genai.configure(api_key=api_key)
     model=genai.GenerativeModel('gemini-pro-vision')
     response=model.generate_content([input, image[0], prompt])
     return response.text
@@ -34,7 +27,6 @@ def input_image_setup(uploaded_file):
         raise FileNotFoundError("No file uploaded")
 
 ##initialize our streamlit app
-
 st.set_page_config(page_title=" GeminAI HealthCare Assistance mini🎄")
 
 # Custom CSS for heading
@@ -84,63 +76,12 @@ st.sidebar.header("Look the Magic")
 
 uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
 input = st.text_input("Input Prompt: ", key="input")
+api_key = st.text_input("Google API Key")
+
 if uploaded_file is not None:
     image = Image.open(uploaded_file)
     st.image(image, caption="Uploaded Image.", use_column_width=True)
 
-
-
-
-# Custom CSS for the star-shaped box
-st.markdown(
-    """
-    <style>
-    .star-box {
-        width: 250px;
-        height: 300px;
-        background: linear-gradient(-45deg, #008080, #800080, #008080);
-        border-radius: 25px;
-        padding: 20px;
-        color: white;
-        text-align: center;
-        font-size: 16px;
-        font-weight: bold;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
-
-# Text inside the star-shaped box
-st.sidebar.markdown('<div class="star-box">Welcome to our HealthCare App! To get started, simply upload an image of your food. Once uploaded, feel free to ask any questions related to the food item. Our AI will provide insights on nutrition, calories, and preparation methods. Enjoy exploring!</div>', unsafe_allow_html=True)
-
-
-
-    
-# Custom CSS for cartoon buttons
-st.markdown(
-    """
-    <style>
-    .cartoon-button {
-        background-color: #ffd700;
-        border: none;
-        color: white;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 16px;
-        margin: 4px 2px;
-        cursor: pointer;
-        border-radius: 50%;
-        width: 60px;
-        height: 60px;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
-
-## If submit button is clicked
 try:
     if st.button("🍲 Total calories", key="calories"):
         image_data = input_image_setup(uploaded_file)
@@ -154,20 +95,9 @@ try:
             ----
             ----
         """
-        response = get_gemini_repsonse(input, image_data, input_prompt)
+        response = get_gemini_repsonse(input, image_data, input_prompt, api_key)
         st.subheader("Total Calories")
         st.write(response)
-        
-        # Example bar chart for total calories
-        # You can replace this with your actual data
-        #calories_data = {
-          #  "Item 1": 300,
-           # "Item 2": 500,
-           # "Item 3": 200
-       # }
-      #  plt.bar(calories_data.keys(), calories_data.values())
-     ##   plt.ylabel("Calories")
-       # st.pyplot(plt)
 except FileNotFoundError as e:
     st.error(f"Error: {e}")
 
@@ -181,7 +111,7 @@ try:
             ----
             ----
         """
-        response = get_gemini_repsonse(input, image_data, input_prompt)
+        response = get_gemini_repsonse(input, image_data, input_prompt, api_key)
         st.subheader("Preparation Method")
         st.write(response)
 except FileNotFoundError as e:
@@ -213,7 +143,7 @@ try:
             ----
             ----
         """
-        response = get_gemini_repsonse(input, image_data, input_prompt)
+        response = get_gemini_repsonse(input, image_data, input_prompt, api_key)
         st.subheader("Nutritional Content")
         st.write(response)
 except FileNotFoundError as e:
