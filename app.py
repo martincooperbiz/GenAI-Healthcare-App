@@ -29,7 +29,6 @@ def input_image_setup(uploaded_file):
 st.set_page_config(page_title=" GeminAI HealthCare Assistance mini🎄")
 
 # Sidebar with API key input and save button
-st.sidebar.title("API Configuration")
 api_key = st.sidebar.text_input("Enter Google API Key:", key="api_key")
 if st.sidebar.button("Save"):
     st.sidebar.success("API Key Saved")
@@ -99,7 +98,7 @@ try:
             ----
             ----
         """
-        response = get_gemini_repsonse(input, image_data, input_prompt, api_key)
+        response = get_gemini_repsonse(input, image_data, input_prompt)
         st.subheader("Total Calories")
         st.write(response)
 except FileNotFoundError as e:
@@ -115,7 +114,7 @@ try:
             ----
             ----
         """
-        response = get_gemini_repsonse(input, image_data, input_prompt, api_key)
+        response = get_gemini_repsonse(input, image_data, input_prompt)
         st.subheader("Preparation Method")
         st.write(response)
 except FileNotFoundError as e:
@@ -147,7 +146,7 @@ try:
             ----
             ----
         """
-        response = get_gemini_repsonse(input, image_data, input_prompt, api_key)
+        response = get_gemini_repsonse(input, image_data, input_prompt)
         st.subheader("Nutritional Content")
         st.write(response)
 except FileNotFoundError as e:
