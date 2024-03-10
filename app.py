@@ -4,7 +4,8 @@ from PIL import Image
 import matplotlib.pyplot as plt
 
 # Function to load Google Gemini Pro Vision API And get response
-def get_gemini_repsonse(input, image, prompt):
+def get_gemini_repsonse(input, image, prompt, api_key):
+    genai.configure(api_key=api_key)
     model = genai.GenerativeModel('gemini-pro-vision')
     response = model.generate_content([input, image[0], prompt])
     return response.text
@@ -99,7 +100,7 @@ try:
             ----
             ----
         """
-        response = get_gemini_repsonse(input, image_data, input_prompt)
+        response = get_gemini_repsonse(input, image_data, input_prompt, api_key)
         st.subheader("Total Calories")
         st.write(response)
 except FileNotFoundError as e:
@@ -115,7 +116,7 @@ try:
             ----
             ----
         """
-        response = get_gemini_repsonse(input, image_data, input_prompt)
+        response = get_gemini_repsonse(input, image_data, input_prompt, api_key)
         st.subheader("Preparation Method")
         st.write(response)
 except FileNotFoundError as e:
@@ -147,7 +148,7 @@ try:
             ----
             ----
         """
-        response = get_gemini_repsonse(input, image_data, input_prompt)
+        response = get_gemini_repsonse(input, image_data, input_prompt, api_key)
         st.subheader("Nutritional Content")
         st.write(response)
 except FileNotFoundError as e:
