@@ -3,7 +3,7 @@ import google.generativeai as genai
 from PIL import Image
 import matplotlib.pyplot as plt
 
-# Function to load Google Gemini Pro Vision API And get response
+## Function to load Google Gemini Pro Vision API And get response
 def get_gemini_repsonse(input, image, prompt):
     model = genai.GenerativeModel('gemini-pro-vision')
     response = model.generate_content([input, image[0], prompt])
@@ -31,35 +31,9 @@ st.set_page_config(page_title=" GeminAI HealthCare Assistance mini🎄")
 # API key input at the top of the page
 api_key = st.text_input("Enter Google API Key:", key="api_key")
 
-# Custom CSS for heading
-st.markdown(
-    """
-    <style>
-    .big-heading {
-        color: #FFD700;
-        font-size: 36px;
-        font-weight: bold;
-        padding-top: 20px;
-        padding-bottom: 20px;
-    }
-    .horizontal-box {
-        background-color: #4CAF50;
-        border: none;
-        color: white;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 16px;
-        margin: 4px 2px;
-        cursor: pointer;
-        border-radius: 12px;
-        padding: 10px 20px;
-        width: fit-content;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
+# Configure API key
+if api_key:
+    genai.configure(api_key=api_key)
 
 # Big heading with green apple symbol
 st.markdown('<p class="big-heading">GeminAI HealthCare Assistance mini🎄</p>', unsafe_allow_html=True)
