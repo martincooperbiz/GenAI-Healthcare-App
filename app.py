@@ -4,8 +4,7 @@ from PIL import Image
 import matplotlib.pyplot as plt
 
 # Function to load Google Gemini Pro Vision API And get response
-def get_gemini_repsonse(input, image, prompt, api_key):
-    genai.configure(api_key=api_key)
+def get_gemini_repsonse(input, image, prompt):
     model = genai.GenerativeModel('gemini-pro-vision')
     response = model.generate_content([input, image[0], prompt])
     return response.text
